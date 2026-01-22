@@ -1,0 +1,4 @@
+﻿global using TimeSheetServicePlanLibrary.Entities;
+global using TimeSheetServicePlanLibrary.Services;
+global using TimeSheetServicePlanLibrary.Interfaces;
+global using TimeSheetServicePlanWebApp.Models;

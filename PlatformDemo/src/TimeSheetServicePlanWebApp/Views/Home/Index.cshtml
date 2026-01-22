@@ -1,0 +1,64 @@
+﻿@model  DashboardViewModel;
+@{
+    ViewData["Title"] = "Home";
+    int? count = Model.ServicePlansCollection?.Count() ?? 0;
+}
+
+
+<h1>Service Plans & Time Sheets</h1>
+
+<table class="table">
+    <thead>
+        <tr class="table-dark">
+            <th>ID #</th>
+            <th colspan="2">Date Of Purchase</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var plan in Model.ServicePlansCollection)
+        {
+            <!-- Service Plan Row -->
+            <tr class="table-primary">
+                <td>
+                    <strong>@plan.Id</strong>
+                </td>
+                <td colspan="2">@plan.DateOfPurchase.ToString("dddd, MMMM dd, yyyy")</td>
+            </tr>
+
+            <!-- Time Sheet Rows (Indented) -->
+            @if (plan.Timesheets?.Any() == true)
+            {
+                <!-- Spacer Row -->
+                <tr style="height: 20px; background-color: transparent;">
+                    <td colspan="6"></td>
+                </tr>
+                @foreach (var ts in plan.Timesheets.OrderByDescending(t => t.StartDate))
+                {
+                    <tr class="table-light">
+                        <td>
+                            <small><b>Time Sheet ID #:</b> @ts.Id</small>
+                          
+                        </td>
+                        <td> <small><b>Start Date:</b> @ts.StartDate.ToString("dddd, MMMM dd, yyyy h:mm:ss tt")</small></td>
+                        <td> <small><b>End Date:</b> @ts.EndDate.ToString("dddd, MMMM dd, yyyy h:mm:ss tt")</small></td>
+                    </tr>
+                }
+                <!-- Spacer Row -->
+                <tr style="height: 20px; background-color: transparent;">
+                    <td colspan="6"></td>
+                </tr>
+            }
+            else
+            {
+                <tr class="table-warning">
+                    <td colspan="6" class="text-center">
+                        <i class="bi bi-exclamation-circle"></i>
+                        No time sheets for this plan
+                    </td>
+                </tr>
+            }
+        }
+
+
+    </tbody>
+</table>

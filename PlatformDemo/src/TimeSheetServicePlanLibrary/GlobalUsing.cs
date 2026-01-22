@@ -1,0 +1,2 @@
+﻿global using TimeSheetServicePlanLibrary.Entities;
+global using TimeSheetServicePlanLibrary.Interfaces;
